@@ -1,1 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grih Pravesh WhatsApp Invitation Generator</title>
+    <!-- Tailwind CSS for responsive, modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Serif for traditional elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons for crisp UI icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf8f5;
+        }
+        .serif-title {
+            font-family: 'Noto Serif', serif;
+        }
+        /* WhatsApp Chat Wallpaper Pattern Simulation */
+        .whatsapp-bg {
+            background-color: #efeae2;
+            background-image: radial-gradient(#d5cfc7 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+        /* Custom Scrollbar for Guest List */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-stone-800 flex flex-col">
 
+    <!-- Top Festive Header -->
+    <header class="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-5 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 text-center sm:text-left">
+                <div class="bg-amber-100/20 p-2.5 rounded-xl backdrop-blur-sm border border-amber-200/30">
+                    <!-- Traditional Kalash / Diya SVG Icon -->
+                    <svg class="w-8 h-8 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2c.5 2 2 3.5 2 5.5a2 2 0 1 1-4 0c0-2 1.5-3.5 2-5.5Z" fill="#fde68a"/>
+                        <path d="M5 13h14l-1.5 6a3 3 0 0 1-2.9 2.2H9.4a3 3 0 0 1-2.9-2.2L5 13Z"/>
+                        <path d="M3 13h18"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="serif-title text-xl sm:text-2xl font-semibold tracking-wide text-amber-50">
+                        Grih Pravesh Invitation Studio
+                    </h1>
+                    <p class="text-xs sm:text-sm text-amber-100/90">
+                        Ritubala & Jaidrath Prasad Family • Housewarming Ceremony
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs bg-black/20 px-3 py-1.5 rounded-full border border-white/15">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>WhatsApp Ready Formatter</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Left Column: Controls & Google Sheet Loader (7 cols on lg) -->
+        <div class="lg:col-span-7 space-y-6">
+
+            <!-- Card 1: Guest Name Customization (Manual + Google Sheet) -->
+            <section class="bg-white rounded-2xl shadow-sm border border-amber-200/60 overflow-hidden">
+                <div class="bg-amber-50/80 px-5 py-4 border-b border-amber-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="user-plus" class="w-5 h-5 text-amber-700"></i>
+                        <h2 class="font-semibold text-stone-800">1. Guest Name & Google Sheet Sync</h2>
+                    </div>
+                    <span id="guestCountBadge" class="hidden text-xs font-medium bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full">
+                        0 Guests Loaded
+                    </span>
+                </div>
+
+                <div class="p-5 space-y-5">
+                    <!-- Manual Input Box -->
+                    <div>
+                        <label for="guestNameInput" class="block text-sm font-medium text-stone-700 mb-1.5">
+                            Guest Name (Manual Type or Select Below)
+                        </label>
+                        <div class="relative flex items-center">
+                            <input 
+                                type="text" 
+                                id="guestNameInput" 
+                                placeholder="e.g., Sharma, Rajesh Kumar, Verma..." 
+                                class="w-full rounded-xl border border-stone-300 bg-stone-50/50 px-4 py-3 pr-24 text-stone-900 font-medium focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition"
+                            />
+                            <button 
+                                type="button" 
+                                id="clearNameBtn"
+                                class="absolute right-2 px-3 py-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 bg-stone-200/70 hover:bg-stone-200 rounded-lg transition"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                        <p class="text-xs text-stone-500 mt-1.5">
+                            Formats automatically as: <span class="font-medium text-stone-700">Dear <span id="inlinePreviewName" class="text-amber-700 underline">( customized name )</span> jee ,</span>
+                        </p>
+                    </div>
+
+                    <hr class="border-stone-100">
+
+                    <!-- Google Sheet Integration -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="sheetUrlInput" class="block text-sm font-medium text-stone-700 flex items-center gap-1.5">
+                                <i data-lucide="sheet" class="w-4 h-4 text-emerald-600"></i>
+                                Load Guests from Google Sheet
+                            </label>
+                            <button 
+                                type="button" 
+                                id="toggleHelpBtn" 
+                                class="text-xs text-amber-700 hover:text-amber-800 font-medium underline flex items-center gap-1"
+                            >
+                                <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                                How to connect sheet?
+                            </button>
+                        </div>
+
+                        <!-- Collapsible Help Guide -->
+                        <div id="sheetHelpBox" class="hidden bg-amber-50/70 border border-amber-200/80 rounded-xl p-3.5 text-xs text-stone-700 space-y-1.5">
+                            <p class="font-semibold text-amber-900">Quick Setup for Google Sheets:</p>
+                            <ol class="list-decimal list-inside space-y-1 text-stone-600">
+                                <li>Open your Google Sheet containing guest names in the first column.</li>
+                                <li>Click <strong>Share</strong> (top right) &rarr; Change access to <strong>"Anyone with the link"</strong> (Viewer), <em>OR</em> go to <strong>File &rarr; Share &rarr; Publish to web</strong> (CSV).</li>
+                                <li>Paste the Google Sheet link below and click <strong>Fetch Names</strong>.</li>
+                            </ol>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input 
+                                type="url" 
+                                id="sheetUrlInput" 
+                                placeholder="Paste Google Sheet URL here (https://docs.google.com/spreadsheets/d/...)" 
+                                class="flex-1 rounded-xl border border-stone-300 px-3.5 py-2.5 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition"
+                            />
+                            <button 
+                                type="button" 
+                                id="fetchSheetBtn"
+                                class="bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-medium text-sm px-4 py-2.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 whitespace-nowrap"
+                            >
+                                <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                                <span>Fetch Names</span>
+                            </button>
+                        </div>
+
+                        <!-- Status Message Area -->
+                        <div id="sheetStatus" class="hidden text-xs rounded-xl px-3.5 py-2.5 flex items-center gap-2"></div>
+
+                        <!-- Guest List Selector (Populated when Sheet loads or Demo loaded) -->
+                        <div id="guestListContainer" class="hidden pt-2 space-y-2.5">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-stone-500">
+                                    Select a Guest from Sheet:
+                                </span>
+                                <div class="relative w-full sm:w-56">
+                                    <i data-lucide="search" class="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                                    <input 
+                                        type="text" 
+                                        id="guestSearchInput" 
+                                        placeholder="Filter guests..." 
+                                        class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-stone-200 focus:border-amber-500 outline-none"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Scrollable Guest Pills / Rows -->
+                            <div id="guestChipsGrid" class="max-h-48 overflow-y-auto p-2 bg-stone-50 rounded-xl border border-stone-200/80 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <!-- Dynamic guest buttons injected here -->
+                            </div>
+
+                            <!-- Next / Previous Guest Quick Navigation -->
+                            <div class="flex items-center justify-between pt-1">
+                                <button type="button" id="prevGuestBtn" class="text-xs font-medium text-stone-600 hover:text-amber-700 flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-amber-50 transition">
+                                    <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous
+                                </button>
+                                <span id="currentGuestIndexLabel" class="text-xs text-stone-400 font-medium"></span>
+                                <button type="button" id="nextGuestBtn" class="text-xs font-medium text-stone-600 hover:text-amber-700 flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-amber-50 transition">
+                                    Next Guest <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 2: Invitation Template Editor (Optional Quick Edits) -->
+            <section class="bg-white rounded-2xl shadow-sm border border-amber-200/60 overflow-hidden">
+                <button 
+                    type="button" 
+                    id="toggleTemplateEditorBtn"
+                    class="w-full bg-stone-50 hover:bg-stone-100/80 px-5 py-3.5 flex items-center justify-between text-left transition"
+                >
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="edit-3" class="w-4 h-4 text-stone-600"></i>
+                        <span class="font-semibold text-sm text-stone-700">2. Customize Invitation Details (Optional)</span>
+                    </div>
+                    <i data-lucide="chevron-down" id="editorChevron" class="w-4 h-4 text-stone-500 transition-transform"></i>
+                </button>
+
+                <div id="templateEditorBody" class="hidden p-5 border-t border-stone-100 space-y-4 text-sm">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-stone-600 mb-1">Date</label>
+                            <input type="text" id="editDate" value="Monday, 25 November 2025;" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-stone-600 mb-1">Prasad & Dinner Time</label>
+                            <input type="text" id="editTime" value="7:30 pm - 10:00 pm" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-stone-600 mb-1">Address</label>
+                        <input type="text" id="editAddress" value="A/205, Mi Ravet District Phase - I, Ganesh Nagar, Ravet, Pune 412101" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-stone-600 mb-1">Google Maps Venue Link</label>
+                            <input type="text" id="editMapLink" value="https://maps.app.goo.gl/aRp4WCa7GpqCp6J76" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-stone-600 mb-1">Contact Numbers</label>
+                            <input type="text" id="editContacts" value="9595760918 / 9420862664" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-stone-600 mb-1">Host Family Name</label>
+                        <input type="text" id="editFamily" value="Ritubala & Jaidrath Prasad Family" class="w-full rounded-xl border border-stone-300 px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column: Live WhatsApp Preview & Copy Actions (5 cols on lg) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-6 space-y-4">
+            <div class="bg-white rounded-2xl shadow-md border border-stone-200/80 overflow-hidden">
+                <!-- Mock WhatsApp Top Bar -->
+                <div class="bg-[#075E54] text-white px-4 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm shadow-inner">
+                            GP
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm leading-tight">WhatsApp Message Preview</h3>
+                            <p class="text-[11px] text-emerald-100/90 flex items-center gap-1">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+                                Live Final Output
+                            </p>
+                        </div>
+                    </div>
+                    <span class="text-[11px] bg-white/15 px-2.5 py-1 rounded-full font-medium">
+                        Ready to Send
+                    </span>
+                </div>
+
+                <!-- WhatsApp Chat Canvas -->
+                <div class="whatsapp-bg p-4 sm:p-5 min-h-[380px] flex flex-col justify-between">
+                    <!-- Outgoing Green Message Bubble -->
+                    <div class="relative bg-[#DCF8C6] text-[#111B21] rounded-2xl rounded-tr-none p-4 shadow-sm border border-[#c6e9ab] max-w-full ml-auto">
+                        <!-- Bubble Tail -->
+                        <div class="absolute -right-2 top-0 w-3 h-3 bg-[#DCF8C6]" style="clip-path: polygon(0 0, 0 100%, 100% 0);"></div>
+
+                        <!-- Final Rendered Invitation Text -->
+                        <pre id="finalMessageOutput" class="whitespace-pre-wrap font-sans text-[13.5px] sm:text-[14px] leading-[1.55] break-words select-all"></pre>
+
+                        <!-- Timestamp & Double Blue Tick -->
+                        <div class="flex items-center justify-end gap-1 mt-2 text-[11px] text-stone-500">
+                            <span id="liveClock">9:39 PM</span>
+                            <svg class="w-4 h-4 text-[#53bdeb]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6 7 17l-5-5"/>
+                                <path d="m22 10-7.5 7.5L13 16"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Subtle helper note -->
+                    <div class="mt-4 text-center">
+                        <span class="inline-block bg-white/85 backdrop-blur-sm text-stone-600 text-[11px] px-3 py-1 rounded-full shadow-xs">
+                            Formatting & links will appear clickable in WhatsApp
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons Footer -->
+                <div class="p-4 bg-stone-50 border-t border-stone-200/80 space-y-2.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <!-- Primary Copy Button -->
+                        <button 
+                            type="button" 
+                            id="copyMessageBtn"
+                            class="w-full bg-amber-600 hover:bg-amber-700 active:scale-[0.98] text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                            <span id="copyBtnText">Copy Text</span>
+                        </button>
+
+                        <!-- Direct Open in WhatsApp Button -->
+                        <a 
+                            id="openWhatsAppBtn"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-full bg-[#25D366] hover:bg-[#1ebe5d] active:scale-[0.98] text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2"
+                        >
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Open WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Toast Notification (No alert() used) -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-stone-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm font-medium">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+        <span id="toastMessage">Invitation copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Application State
+        const state = {
+            guests: [],
+            selectedGuestIndex: -1,
+            manualName: ''
+        };
+
+        // DOM Elements
+        const guestNameInput = document.getElementById('guestNameInput');
+        const inlinePreviewName = document.getElementById('inlinePreviewName');
+        const clearNameBtn = document.getElementById('clearNameBtn');
+
+        const sheetUrlInput = document.getElementById('sheetUrlInput');
+        const fetchSheetBtn = document.getElementById('fetchSheetBtn');
+        const sheetStatus = document.getElementById('sheetStatus');
+        const toggleHelpBtn = document.getElementById('toggleHelpBtn');
+        const sheetHelpBox = document.getElementById('sheetHelpBox');
+
+        const guestCountBadge = document.getElementById('guestCountBadge');
+        const guestListContainer = document.getElementById('guestListContainer');
+        const guestSearchInput = document.getElementById('guestSearchInput');
+        const guestChipsGrid = document.getElementById('guestChipsGrid');
+        const prevGuestBtn = document.getElementById('prevGuestBtn');
+        const nextGuestBtn = document.getElementById('nextGuestBtn');
+        const currentGuestIndexLabel = document.getElementById('currentGuestIndexLabel');
+
+        // Editable Template Fields
+        const toggleTemplateEditorBtn = document.getElementById('toggleTemplateEditorBtn');
+        const templateEditorBody = document.getElementById('templateEditorBody');
+        const editorChevron = document.getElementById('editorChevron');
+        const editDate = document.getElementById('editDate');
+        const editTime = document.getElementById('editTime');
+        const editAddress = document.getElementById('editAddress');
+        const editMapLink = document.getElementById('editMapLink');
+        const editFamily = document.getElementById('editFamily');
+        const editContacts = document.getElementById('editContacts');
+
+        // Output & Action Elements
+        const finalMessageOutput = document.getElementById('finalMessageOutput');
+        const copyMessageBtn = document.getElementById('copyMessageBtn');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const openWhatsAppBtn = document.getElementById('openWhatsAppBtn');
+        const liveClock = document.getElementById('liveClock');
+        const toastNotification = document.getElementById('toastNotification');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Update live clock in WhatsApp bubble
+        function updateClock() {
+            const now = new Date();
+            liveClock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        updateClock();
+        setInterval(updateClock, 30000);
+
+        // Show non-blocking custom toast notification
+        let toastTimeout;
+        function showToast(msg) {
+            toastMessage.textContent = msg;
+            toastNotification.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastNotification.classList.add('translate-y-20', 'opacity-0');
+            }, 2800);
+        }
+
+        // Generate the exact requested WhatsApp message format
+        function generateInvitationText() {
+            const rawName = guestNameInput.value.trim();
+            const displayName = rawName.length > 0 ? rawName : '( customized name )';
+
+            inlinePreviewName.textContent = displayName;
+
+            const dateStr = editDate.value.trim();
+            const timeStr = editTime.value.trim();
+            const addressStr = editAddress.value.trim();
+            const mapLinkStr = editMapLink.value.trim();
+            const familyStr = editFamily.value.trim();
+            const contactsStr = editContacts.value.trim();
+
+            const message = `🙏 *Grih Pravesh Invitation* 🙏
+
+Dear ${displayName} jee ,
+
+We cordially invite you alongwith your family members to the housewarming puja ceremony 🪔 of our new home 🏡, followed by dinner.
+
+📅 *Date:* ${dateStr}
+
+🍽️ *Prasad and Dinner Time:* ${timeStr}
+
+📍 ${addressStr} 
+Venue 📌:  ${mapLinkStr} 
+
+We look forward to your gracious presence on this auspicious occasion. ✨
+...with warm regards, 💐
+*${familyStr}* 
+📞 ${contactsStr}`;
+
+            finalMessageOutput.textContent = message;
+
+            // Update direct WhatsApp share link
+            const encodedMsg = encodeURIComponent(message);
+            openWhatsAppBtn.href = `https://wa.me/?text=${encodedMsg}`;
+        }
+
+        // Copy message to clipboard using execCommand fallback for reliable iFrame support
+        function copyToClipboard() {
+            const textToCopy = finalMessageOutput.textContent;
+
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = textToCopy;
+            tempTextarea.style.position = 'fixed';
+            tempTextarea.style.left = '-9999px';
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    copyBtnText.textContent = 'Copied!';
+                    copyMessageBtn.classList.replace('bg-amber-600', 'bg-emerald-600');
+                    copyMessageBtn.classList.replace('hover:bg-amber-700', 'hover:bg-emerald-700');
+                    showToast('Invitation copied! Ready to paste in WhatsApp.');
+
+                    setTimeout(() => {
+                        copyBtnText.textContent = 'Copy Text';
+                        copyMessageBtn.classList.replace('bg-emerald-600', 'bg-amber-600');
+                        copyMessageBtn.classList.replace('hover:bg-emerald-700', 'hover:bg-amber-700');
+                    }, 2000);
+                } else {
+                    showToast('Unable to copy automatically. Please select text manually.');
+                }
+            } catch (err) {
+                showToast('Copy failed. Please select the preview text and press Ctrl+C.');
+            } finally {
+                document.body.removeChild(tempTextarea);
+            }
+        }
+
+        // Parse Google Sheets URL to a CSV Export endpoint
+        function convertToGoogleSheetCsvUrl(inputUrl) {
+            const trimmed = inputUrl.trim();
+            // Match standard Google Sheets URL: /spreadsheets/d/{ID}/...
+            const sheetIdMatch = trimmed.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+            if (!sheetIdMatch) {
+                return null;
+            }
+            const sheetId = sheetIdMatch[1];
+
+            // Extract gid if present (for specific tabs)
+            const gidMatch = trimmed.match(/[#&?]gid=([0-9]+)/);
+            const gidParam = gidMatch ? `&gid=${gidMatch[1]}` : '';
+
+            return `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv${gidParam}`;
+        }
+
+        // Robust CSV line parser (handles quoted names with commas)
+        function parseCsvNames(csvText) {
+            const lines = csvText.split(/\r?\n/);
+            const names = [];
+
+            lines.forEach((line, index) => {
+                if (!line.trim()) return;
+
+                // Extract first column value cleanly
+                let firstCol = '';
+                if (line.startsWith('"')) {
+                    const endQuoteIdx = line.indexOf('"', 1);
+                    firstCol = endQuoteIdx !== -1 ? line.slice(1, endQuoteIdx) : line.slice(1);
+                } else {
+                    firstCol = line.split(',')[0];
+                }
+
+                firstCol = firstCol.trim();
+
+                // Skip common header labels in row 1
+                const lower = firstCol.toLowerCase();
+                if (index === 0 && (lower === 'name' || lower === 'names' || lower === 'guest name' || lower === 'guest' || lower === 'full name')) {
+                    return;
+                }
+
+                if (firstCol.length > 0) {
+                    names.push(firstCol);
+                }
+            });
+
+            return names;
+        }
+
+        // Display status banner for Google Sheet fetch
+        function setSheetStatus(type, message) {
+            sheetStatus.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'bg-red-50', 'text-red-800', 'border-red-200', 'bg-amber-50', 'text-amber-800', 'border-amber-200');
+            sheetStatus.classList.add('border');
+
+            if (type === 'success') {
+                sheetStatus.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
+                sheetStatus.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i><span>${message}</span>`;
+            } else if (type === 'error') {
+                sheetStatus.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
+                sheetStatus.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-red-600 shrink-0"></i><span>${message}</span>`;
+            } else {
+                sheetStatus.classList.add('bg-amber-50', 'text-amber-800', 'border-amber-200');
+                sheetStatus.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 text-amber-600 animate-spin shrink-0"></i><span>${message}</span>`;
+            }
+            lucide.createIcons();
+        }
+
+        // Render the guest selection grid
+        function renderGuestChips(filterText = '') {
+            guestChipsGrid.innerHTML = '';
+            const query = filterText.toLowerCase().trim();
+
+            const filtered = state.guests
+                .map((name, idx) => ({ name, idx }))
+                .filter(item => item.name.toLowerCase().includes(query));
+
+            if (filtered.length === 0) {
+                guestChipsGrid.innerHTML = `<div class="col-span-full text-center py-4 text-xs text-stone-400">No matching guest names found.</div>`;
+                return;
+            }
+
+            filtered.forEach(({ name, idx }) => {
+                const isSelected = idx === state.selectedGuestIndex;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `text-left px-3 py-2 rounded-lg text-xs font-medium transition flex items-center justify-between gap-2 border ${
+                    isSelected
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
+                        : 'bg-white text-stone-700 border-stone-200 hover:border-amber-400 hover:bg-amber-50/50'
+                }`;
+
+                btn.innerHTML = `
+                    <span class="truncate">${name}</span>
+                    <span class="text-[10px] opacity-75 shrink-0">#${idx + 1}</span>
+                `;
+
+                btn.addEventListener('click', () => {
+                    selectGuestByIndex(idx);
+                });
+
+                guestChipsGrid.appendChild(btn);
+            });
+
+            updatePaginationLabel();
+        }
+
+        function selectGuestByIndex(idx) {
+            if (idx < 0 || idx >= state.guests.length) return;
+            state.selectedGuestIndex = idx;
+            guestNameInput.value = state.guests[idx];
+            generateInvitationText();
+            renderGuestChips(guestSearchInput.value);
+        }
+
+        function updatePaginationLabel() {
+            if (state.guests.length === 0) {
+                currentGuestIndexLabel.textContent = '';
+                return;
+            }
+            const currentPos = state.selectedGuestIndex >= 0 ? state.selectedGuestIndex + 1 : 0;
+            currentGuestIndexLabel.textContent = currentPos > 0
+                ? `Guest ${currentPos} of ${state.guests.length}`
+                : `${state.guests.length} guests available`;
+        }
+
+        // Fetch and load names from Google Sheet
+        async function handleFetchGoogleSheet() {
+            const url = sheetUrlInput.value.trim();
+            if (!url) {
+                setSheetStatus('error', 'Please paste a valid Google Sheet link first.');
+                return;
+            }
+
+            const csvUrl = convertToGoogleSheetCsvUrl(url);
+            if (!csvUrl) {
+                setSheetStatus('error', 'Invalid Google Sheets URL. Make sure it contains "/spreadsheets/d/..."');
+                return;
+            }
+
+            setSheetStatus('loading', 'Fetching guest names from Google Sheet...');
+            fetchSheetBtn.disabled = true;
+
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const csvText = await response.text();
+
+                // Check if Google returned an HTML login page instead of CSV (private sheet)
+                if (csvText.trim().startsWith('<!DOCTYPE html>') || csvText.includes('<html')) {
+                    throw new Error('PRIVATE_SHEET');
+                }
+
+                const extractedNames = parseCsvNames(csvText);
+
+                if (extractedNames.length === 0) {
+                    setSheetStatus('error', 'No names found in the first column of this sheet.');
+                    return;
+                }
+
+                state.guests = extractedNames;
+                state.selectedGuestIndex = 0;
+
+                guestCountBadge.textContent = `${extractedNames.length} Guests Loaded`;
+                guestCountBadge.classList.remove('hidden');
+                guestListContainer.classList.remove('hidden');
+
+                setSheetStatus('success', `Successfully loaded ${extractedNames.length} guest names from your Google Sheet!`);
+                selectGuestByIndex(0);
+            } catch (err) {
+                if (err.message === 'PRIVATE_SHEET') {
+                    setSheetStatus('error', 'Sheet is private! Set Share permissions to "Anyone with the link" (Viewer) and try again.');
+                } else {
+                    setSheetStatus('error', 'Could not access the sheet. Ensure it is shared publicly ("Anyone with the link") or Published to Web.');
+                }
+            } finally {
+                fetchSheetBtn.disabled = false;
+            }
+        }
+
+        // Event Listeners
+        guestNameInput.addEventListener('input', () => {
+            // Deselect chip highlight if user manually edits name away from selected chip
+            if (state.selectedGuestIndex >= 0 && guestNameInput.value.trim() !== state.guests[state.selectedGuestIndex]) {
+                state.selectedGuestIndex = -1;
+                renderGuestChips(guestSearchInput.value);
+            }
+            generateInvitationText();
+        });
+
+        clearNameBtn.addEventListener('click', () => {
+            guestNameInput.value = '';
+            state.selectedGuestIndex = -1;
+            if (state.guests.length > 0) {
+                renderGuestChips(guestSearchInput.value);
+            }
+            generateInvitationText();
+            guestNameInput.focus();
+        });
+
+        fetchSheetBtn.addEventListener('click', handleFetchGoogleSheet);
+
+        toggleHelpBtn.addEventListener('click', () => {
+            sheetHelpBox.classList.toggle('hidden');
+        });
+
+        guestSearchInput.addEventListener('input', (e) => {
+            renderGuestChips(e.target.value);
+        });
+
+        prevGuestBtn.addEventListener('click', () => {
+            if (state.guests.length === 0) return;
+            const nextIdx = state.selectedGuestIndex <= 0 ? state.guests.length - 1 : state.selectedGuestIndex - 1;
+            selectGuestByIndex(nextIdx);
+        });
+
+        nextGuestBtn.addEventListener('click', () => {
+            if (state.guests.length === 0) return;
+            const nextIdx = state.selectedGuestIndex >= state.guests.length - 1 ? 0 : state.selectedGuestIndex + 1;
+            selectGuestByIndex(nextIdx);
+        });
+
+        toggleTemplateEditorBtn.addEventListener('click', () => {
+            templateEditorBody.classList.toggle('hidden');
+            editorChevron.classList.toggle('rotate-180');
+        });
+
+        // Re-render preview whenever any editable template field changes
+        [editDate, editTime, editAddress, editMapLink, editFamily, editContacts].forEach(input => {
+            input.addEventListener('input', generateInvitationText);
+        });
+
+        copyMessageBtn.addEventListener('click', copyToClipboard);
+
+        // Initial render on page load
+        generateInvitationText();
+    </script>
+</body>
+</html>
